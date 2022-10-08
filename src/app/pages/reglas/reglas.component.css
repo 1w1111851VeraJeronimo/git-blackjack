@@ -1,0 +1,27 @@
+.fondaco {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.mostrar {
+    z-index: 2;
+    position: relative;
+    padding: 1%;    
+    max-width: 175rem;
+    max-height: 40rem;
+    overflow: auto;
+}
+
+h1 {
+    color: rgb(0, 0, 0);
+}
+
+.mostrarCentrado {
+    z-index: 2;
+    position: relative;
+    text-align: center;
+    padding: 1%;
+}

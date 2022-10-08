@@ -1,0 +1,13 @@
+<div>
+    <img src="" alt="" [src]="fondo" class="fondaco">
+</div>
+<div class="container-fluid" style="padding-top: 1%;">
+    <button type="button" class="btn btn-danger mx-auto " style="z-index: 2;
+position: relative;" routerLink="/inicio"><i class="fa-sharp fa-solid fa-delete-left"></i></button>
+</div>
+<div class="container mostrar">
+    <app-crupier (crupierEmitter)="updateCrupier($event)" (swalMessageEventEmitter)="displaySwalMessage($event)">
+    </app-crupier>
+    <app-jugador (jugadorEventEmitter)="updateJugador($event)" (startNewGameEventEmiter)="startNewGame($event)" (terminarJuegoEventEmitter)="terminarJuego($event)" (swalMessageEventEmitter)="displaySwalMessage($event)">
+    </app-jugador>
+</div>
