@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand whiteText" routerLink="/home">Home</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active whiteText" aria-current="page" routerLink="/juego">Jugar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link whiteText" routerLink="/partidas">Hisorico Partidas</a>
+          </li>
+        </ul>
+        <div class="nav-item dropdown" style="margin-right: 5rem;">
+            <a class="nav-link dropdown-toggle whiteText" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" (click)="this.desloguearUsuario()">Desloguear Usuario</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </nav>

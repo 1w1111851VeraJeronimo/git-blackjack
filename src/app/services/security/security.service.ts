@@ -15,7 +15,7 @@ export class SecurityService {
   private url = environment.apiBaseUrl;
   jwtHelper = new JwtHelperService();
   decodedToken: any;
-  currentUser: IDetalleUsuarioDto;
+  currentUser!: IDetalleUsuarioDto | null;
   constructor(private httpClient: HttpClient) { }
 
   registrarUsuario(dto: IRegistrarUsuarioDto): Observable<IDetalleUsuarioDto> {
@@ -37,12 +37,12 @@ export class SecurityService {
       );
   }
 
-  loggedIn() {
+  usuarioLogueado() {
     const token = localStorage.getItem('token') ?? undefined;
     return !this.jwtHelper.isTokenExpired(token);
   }
 
-  logOut() {
+  desloguearUsuario() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.decodedToken = null;

@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     this.subscription.add(
       this.securityService.login(this.formularioLogin.value).subscribe(next => {
         this.displaySuccess("Bienvenido", "Login exitoso!");
-        this.router.navigate(['/inicio']);
+        this.router.navigate(['/juego']);
       }, error => {
         this.displayErrors('Error durante el logueo:' + error, "Error");
       })

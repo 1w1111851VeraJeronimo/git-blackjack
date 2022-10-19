@@ -15,6 +15,11 @@ import { RegistroUsuarioComponent } from './security/registro-usuario/registro-u
 import { LoginComponent } from './security/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
+import { NavbarComponent } from './pages/layout/navbar/navbar.component';
+
+export function tokenGetter(){
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -28,7 +33,8 @@ import { JwtModule } from '@auth0/angular-jwt';
     HomeComponent,
     CartaComponent,
     RegistroUsuarioComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -39,8 +45,8 @@ import { JwtModule } from '@auth0/angular-jwt';
     JwtModule.forRoot({
       config:{
          tokenGetter: tokenGetter,
-         whitelistedDomains: ['localhost:44353'],
-         blacklistedRoutes: ['localhost:44353/api/security']
+         allowedDomains : ['localhost:44353'],
+         disallowedRoutes : ['localhost:44353/api/security']
       }
    })
   ],

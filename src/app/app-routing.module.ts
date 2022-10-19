@@ -10,17 +10,17 @@ import { RegistroUsuarioComponent } from './security/registro-usuario/registro-u
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
+  { path: 'inicio', component: HomeComponent },
+  { path: 'usuario/login', component: LoginComponent },
+  { path: 'usuario/registro', component: RegistroUsuarioComponent },
   {
     path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuardService],
     children: [
-      { path: 'inicio', component: HomeComponent },
-      { path: 'mesa', component: MesaComponent },
+      { path: 'juego', component: MesaComponent },
       { path: 'reglas', component: ReglasComponent },
-      { path: 'lista', component: ListaComponent },
-      { path: 'usuario/login', component: LoginComponent },
-      { path: 'usuario/registro', component: RegistroUsuarioComponent },
+      { path: 'partidas', component: ListaComponent },
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }

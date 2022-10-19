@@ -1,0 +1,30 @@
+.ng-valid[required],
+.ng-valid.required {
+    border-left: 5px solid #2AA198;
+    /* green */
+}
+
+.ng-invalid:not(form) {
+    border-left: 5px solid #a94442;
+    /* red */
+}
+
+.dropdown-toggle,
+.dropdown-item {
+    cursor: pointer;
+}
+
+img {
+    max-height: 50px;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: inline;
+}
+
+nav {
+    z-index: 99999;
+}
+
+.whiteText {
+    color: white !important;
+}
