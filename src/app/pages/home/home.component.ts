@@ -12,11 +12,11 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.video = '/assets/img/blackjackIntro.mp4'
+    this.video = '/assets/img/blackjackIntro.mp4';
   }
 
   alertaMantenimiento(){
-    Swal.fire('Perdón, este modulo esta en desarrollo')
+    Swal.fire('Lo sentimos, el modulo aún esta en desarrollo.')
   }
 
 }

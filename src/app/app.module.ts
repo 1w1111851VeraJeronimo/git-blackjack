@@ -11,8 +11,10 @@ import { ReglasComponent } from './pages/reglas/reglas.component';
 import { ListaComponent } from './pages/lista/lista.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CartaComponent } from './pages/black-jack/carta/carta.component';
-
-
+import { RegistroUsuarioComponent } from './security/registro-usuario/registro-usuario.component';
+import { LoginComponent } from './security/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -24,12 +26,23 @@ import { CartaComponent } from './pages/black-jack/carta/carta.component';
     ReglasComponent,
     ListaComponent,
     HomeComponent,
-    CartaComponent
+    CartaComponent,
+    RegistroUsuarioComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    JwtModule.forRoot({
+      config:{
+         tokenGetter: tokenGetter,
+         whitelistedDomains: ['localhost:44353'],
+         blacklistedRoutes: ['localhost:44353/api/security']
+      }
+   })
   ],
   providers: [],
   bootstrap: [AppComponent]

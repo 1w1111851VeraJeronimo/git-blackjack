@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+.validation-error {
+    color: tomato;
+    font-weight: bold;
+}
+
+.login-container {
+    padding: 30px;
+    background-color: #4d4d4d;
+}
+
+.mt-8r {
+    margin-top: 8rem;
+}
+
+.go-back-btn {
+    z-index: 2; 
+    position: relative;
+}
+
+
