@@ -22,4 +22,8 @@ export class CartaService {
   solicitarCartas(dto: IRequestCartaDto) : Observable<ICarta[]>{
     return this.httpClient.post<ICarta[]>(`${this.url}carta/solicitarCartas`, dto, { headers: this.headers});
   }
+
+  solicitarCartaFinPartida(dto: any) : Observable<ICarta[]> {
+    return this.httpClient.post<ICarta[]>(`${this.url}carta/solicitarCartaFinPartidaCrupier`, dto, { headers: this.headers});
+  }
 }

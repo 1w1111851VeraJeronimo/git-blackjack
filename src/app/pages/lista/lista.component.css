@@ -16,10 +16,24 @@
     /* overflow: auto; */
 }
 
+h1 {
+    text-align: center;
+}
+
 th {
     text-align: center;
 }
 
 td {
     text-align: center;
+}
+
+.devider {
+    position: relative;
+    top: 20px;
+    border: none;
+    height: 5px;
+    background: black;
+    margin-bottom: 50px;
+    opacity: 100%;
 }

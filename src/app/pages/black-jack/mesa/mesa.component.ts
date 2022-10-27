@@ -37,7 +37,7 @@ export class MesaComponent implements OnInit {
   loadActiveGame(): void {
     this.subscription.add(
       this.juegoService.loadActiveGame(this.securityService.getUserFromLocalStorage().id).subscribe({
-        next: (result) => { console.log(result); },
+        next: (result) => { },
         error: (error) => { this.displayErrors("Error al cargar la informacion de los juegos pendientes.", "Error"); }
       })
     )
@@ -72,7 +72,7 @@ export class MesaComponent implements OnInit {
         this.crupierComponent.completeMinRequiredScore();
         setTimeout(() => {
           this.checkGrameStatus(this.jugador.score, this.crupier.score, this.jugador.score != 0 && this.crupier.score != 0)
-        }, 2000);
+        }, 5000);
       }
     });
   }
@@ -81,7 +81,7 @@ export class MesaComponent implements OnInit {
     this.subscription.add(
       this.juegoService.addJuego(this.securityService.getUserFromLocalStorage()?.id).subscribe({
         next: (result) => {
-          console.log(result);
+          this.securityService.removeCurrentGame();
           this.securityService.setCurrentGame(result);
           this.crupierComponent.setCartaCrupier(2);
           this.jugadorComponent.solicitarNuevaCarta(2);
@@ -94,38 +94,36 @@ export class MesaComponent implements OnInit {
   }
 
   checkGrameStatus(jugadorScore: number, crupierScore: number, ready: boolean): void {
+    debugger;
+
+    if (jugadorScore == 21) {
+      this.displaySuccess("¡Black Jack!", "¡Ganaste la partida!.");
+      this.resetMesa();
+    }
+
+    if (this.crupier.score == 21) {
+      this.displayErrors("¡Crupier Black Jack!", "Perdiste la partida!.");
+      this.resetMesa();
+    }
 
     if (jugadorScore > 21) {
-      this.jugadorComponent.juegoEnCurso = false;
-      this.displayErrors("¡Perdiste la partida! Superaste los 21 puntos.", "¡Perdiste!");
+      this.displayErrors("¡Perdiste la partida! Superaste los 21 puntos.", "Oops...");
       this.resetMesa();
     }
 
     if (jugadorScore < crupierScore && crupierScore < 21 && ready) {
-      if (this.crupier.score == 21 && ready) {
-        this.displayErrors("¡El Crupier hizo Black Jack!", "¡Perdiste!");
-      } else {
-        this.displayErrors("¡Perdiste la partida!. El crupier tiene mas puntos.", "¡Perdiste!");
-      }
+      this.displayErrors("¡Perdiste la partida!. El crupier tiene mas puntos.", "Oops...");
       this.resetMesa();
     }
 
     if (jugadorScore > crupierScore && ready || crupierScore > 21 && ready) {
-      if (jugadorScore == 21 && ready) {
-        this.displaySuccess("¡Black Jack!", "¡Ganaste!");
-      } else {
-        this.displaySuccess("¡Felicitaciones!.", "¡Ganaste!");
-      }
-      this.resetMesa();
-    }
-
-    if (jugadorScore == crupierScore && ready) {
-      this.displayWarning("¡Tenes el mismo puntaje que el crupier!", "¡Empate!");
+      this.displaySuccess("¡Felicitaciones!.", "¡Ganaste!");
       this.resetMesa();
     }
   }
 
   resetMesa(): void {
+    debugger;
     this.subscription.add(
       this.juegoService.updateGameStatus({ idUsuario: this.securityService.getUserFromLocalStorage().id, idJuego: this.securityService.getGameFromLocalStorage().id, scoreCrupier: this.crupier.score, scoreJugador: this.jugador.score } as UpdateGameStatusRequestDto).subscribe({
         next: (result) => {
@@ -133,6 +131,7 @@ export class MesaComponent implements OnInit {
           this.jugadorComponent.resetJugador();
           this.jugador = {} as IJugador;
           this.crupier = {} as ICrupier;
+          this.jugadorComponent.juegoEnCurso = false;
         },
         error: (error) => {
           this.displayErrors("No pudimos terminar la partida.", "Error");
@@ -168,7 +167,8 @@ export class MesaComponent implements OnInit {
       icon: 'success',
       title: title,
       text: text,
-      timer: 1500
+      showCancelButton: false,
+      confirmButtonText: 'OK'
     });
   }
 
@@ -177,8 +177,8 @@ export class MesaComponent implements OnInit {
       icon: 'warning',
       title: title,
       text: text,
-      timer: 1500
+      showCancelButton: false,
+      confirmButtonText: 'OK'
     });
   }
-
 }

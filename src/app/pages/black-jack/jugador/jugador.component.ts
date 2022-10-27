@@ -69,15 +69,16 @@ export class JugadorComponent implements OnInit {
                 next: (result) => {
                   x.valores.splice(x.valores.indexOf(1), 1);
                   this.cartasJugador.push(x);
+                  this.updateScore();
                 },
                 error: (error) => { console.log(error); }
               })
             )
           } else if (result.isDenied) {
-            x.valores.splice(x.valores.indexOf(11), 1);
             this.subscription.add(
               this.juegoService.updateDetalleJuego({ valorSolicitado: 1, idCarta: x.id, idJuego: this.securityService.getGameFromLocalStorage().id, idUsuario: this.securityService.getUserFromLocalStorage().id } as IUpdateCartaValueDto).subscribe({
                 next: (result) => {
+                  x.valores.splice(x.valores.indexOf(11), 1);
                   this.cartasJugador.push(x);
                   this.updateScore();
                 },
@@ -88,9 +89,9 @@ export class JugadorComponent implements OnInit {
         });
       } else {
         this.cartasJugador.push(x);
+        this.updateScore();
       }
     });
-    this.updateScore();
   }
 
   updateScore(emitEvent: boolean = true): void {

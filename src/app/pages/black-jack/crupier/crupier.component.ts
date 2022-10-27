@@ -32,20 +32,39 @@ export class CrupierComponent implements OnInit {
   }
 
   completeMinRequiredScore(): void {
-    while (this.score < 17) {
-      this.setCartaCrupier(1, false);
-    }
-    this.updateScore(true);
+    this.setCartaCrupier(1, false, true);
   }
 
-  setCartaCrupier(cantidad: number, emitEvent: boolean = true): void {
+  setFinPartida(emitEvent: boolean = true): void {
+    let dto = { idJuego: this.securityService.getGameFromLocalStorage().id, idUsuario: this.securityService.getUserFromLocalStorage().id, scoreCrupier: this.score };
+
+    this.subscription.add(
+      this.cartaService.solicitarCartaFinPartida(dto).subscribe({
+        next: (results) => { this.setNuevaCarta(results, emitEvent); },
+        error: (error) => { this.swalMessageEventEmitter.emit({ message: error, title: "Oops...", icon: "error" } as IswalMessageCommunicationDto); }
+      })
+    );
+  }
+
+  setCartaCrupier(cantidad: number, emitEvent: boolean = true, isEndOfGame: boolean = false): void {
     let dto = { idJuego: this.securityService.getGameFromLocalStorage().id, idUsuario: this.securityService.getUserFromLocalStorage().id, cantidadCartasSolicitadas: cantidad, esCrupier: true } as IRequestCartaDto
 
     this.subscription.add(
       this.cartaService.solicitarCartas(dto).subscribe({
-        next: (results) => { console.log(results); this.setNuevaCarta(results, emitEvent); },
+        next: (results) => {
+          this.setNuevaCarta(results, emitEvent);
+
+          if (isEndOfGame && this.score < 17) {
+            this.completeMinRequiredScore();
+          }
+
+          if (isEndOfGame && this.score >= 17) {
+            this.updateScore(true);
+          }
+        },
         error: (error) => { this.swalMessageEventEmitter.emit({ message: error, title: "Oops...", icon: "error" } as IswalMessageCommunicationDto); }
-      }));
+      })
+    );
   }
 
   setNuevaCarta(cartas: ICarta[], emitEvent: boolean = true): void {
@@ -70,6 +89,7 @@ export class CrupierComponent implements OnInit {
 
   updateScore(emitEvent: boolean = true): void {
     this.score = 0;
+
     this.cartasCrupier.forEach((x) => {
       this.score += !x.showBack ? x.valores[0] : 0;
     });
