@@ -53,7 +53,7 @@ export class MesaComponent implements OnInit {
 
   updateJugador(jugador: IJugador): void {
     Object.assign(this.jugador, jugador);
-    this.checkGrameStatus(this.jugador.score, this.crupier.score, this.jugador.score != 0 && this.crupier.score >= 17);
+    this.checkGrameStatus(this.jugador.score, this.crupier.score, this.jugador.score != 0 && (this.crupier.score > 17 || this.jugador.score > 21));
   }
 
   terminarJuego(param: any): void {
@@ -94,31 +94,34 @@ export class MesaComponent implements OnInit {
   }
 
   checkGrameStatus(jugadorScore: number, crupierScore: number, ready: boolean): void {
-    debugger;
-
-    if (jugadorScore == 21) {
+    if (jugadorScore == 21 && ready) {
       this.displaySuccess("¡Black Jack!", "¡Ganaste la partida!.");
       this.resetMesa();
+      return;
     }
 
-    if (this.crupier.score == 21) {
-      this.displayErrors("¡Crupier Black Jack!", "Perdiste la partida!.");
-      this.resetMesa();
-    }
-
-    if (jugadorScore > 21) {
+    if (jugadorScore > 21 && ready) {
       this.displayErrors("¡Perdiste la partida! Superaste los 21 puntos.", "Oops...");
       this.resetMesa();
+      return;
     }
 
-    if (jugadorScore < crupierScore && crupierScore < 21 && ready) {
+    if (jugadorScore < crupierScore && ready) {
       this.displayErrors("¡Perdiste la partida!. El crupier tiene mas puntos.", "Oops...");
       this.resetMesa();
+      return;
     }
 
-    if (jugadorScore > crupierScore && ready || crupierScore > 21 && ready) {
-      this.displaySuccess("¡Felicitaciones!.", "¡Ganaste!");
+    if (jugadorScore > crupierScore && ready) {
+      this.displaySuccess("¡Felicitaciones!.", "¡Ganaste la partida!.");
       this.resetMesa();
+      return;
+    }
+
+    if (jugadorScore == crupierScore && ready) {
+      this.displayWarning("¡Tenes el mismo puntaje que el crupier!", "¡Empate!");
+      this.resetMesa();
+      return;
     }
   }
 
