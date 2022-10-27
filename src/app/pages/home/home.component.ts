@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
     if (this.loggedIn())
       this.playUrl = "/juego"
 
-    this.video = '/assets/img/blackjackIntro.mp4';
+    this.video = 'https://res.cloudinary.com/dfyevp7g4/video/upload/v1665177959/blackjack/video/blackjackIntro.mp4';
   }
 
   alertaMantenimiento() {

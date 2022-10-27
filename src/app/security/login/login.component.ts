@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.video = '/assets/img/blackjackIntro.mp4';
+    this.video = 'https://res.cloudinary.com/dfyevp7g4/video/upload/v1665177959/blackjack/video/blackjackIntro.mp4';
   }
 
   ngOnDestroy(): void {
