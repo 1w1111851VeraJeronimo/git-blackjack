@@ -53,6 +53,13 @@ export class JugadorComponent implements OnInit {
       }));
   }
 
+  setPreviousCards(cartas: ICarta[]){
+    cartas.forEach(x => {
+      this.cartasJugador.push(x);
+      this.updateScore();
+    });
+  }
+
   setNuevaCarta(cartas: ICarta[]): void {
     cartas.forEach(x => {
       if (x.nombre == "A") {

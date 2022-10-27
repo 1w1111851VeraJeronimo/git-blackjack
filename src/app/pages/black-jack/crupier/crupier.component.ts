@@ -35,6 +35,13 @@ export class CrupierComponent implements OnInit {
     this.setCartaCrupier(1, false, true);
   }
 
+  setPreviousCards(cartas: ICarta[]){
+    cartas.forEach(x => {
+      this.cartasCrupier.push(x);
+      this.updateScore();
+    });
+  }
+
   setFinPartida(emitEvent: boolean = true): void {
     let dto = { idJuego: this.securityService.getGameFromLocalStorage().id, idUsuario: this.securityService.getUserFromLocalStorage().id, scoreCrupier: this.score };
 

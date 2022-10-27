@@ -11,6 +11,7 @@ import { IRequestCartaDto } from '../../../interfaces/dtos/i-request-carta-dto';
 import { JuegoService } from '../../../services/juego.service';
 import { SecurityService } from '../../../services/security/security.service';
 import { UpdateGameStatusRequestDto } from '../../../interfaces/dtos/i-update-game-status-request-dto';
+import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 
 @Component({
   selector: 'app-mesa',
@@ -37,7 +38,14 @@ export class MesaComponent implements OnInit {
   loadActiveGame(): void {
     this.subscription.add(
       this.juegoService.loadActiveGame(this.securityService.getUserFromLocalStorage().id).subscribe({
-        next: (result) => { },
+        next: (result) => { console.log(result);
+          if(result !=  null && result != undefined && result?.active){
+            this.securityService.setCurrentGame(result.juegoDto);
+            this.jugadorComponent.setPreviousCards(result.cartasUsuario);
+            this.crupierComponent.setPreviousCards(result.cartasCrupier);
+            this.jugadorComponent.juegoEnCurso = result.active;
+          }
+        },
         error: (error) => { this.displayErrors("Error al cargar la informacion de los juegos pendientes.", "Error"); }
       })
     )
