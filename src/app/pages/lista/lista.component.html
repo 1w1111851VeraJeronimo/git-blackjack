@@ -1,1 +1,31 @@
-<p>lista works!</p>
+<div>
+    <img src="" alt="" [src]="fondo" class="fondaco">
+</div>
+<div class="container-fluid" style="padding-top: 1%;">
+    <button type="button" class="btn btn-danger mx-auto " style="z-index: 2;
+position: relative;" routerLink="/inicio"><i class="fa-sharp fa-solid fa-delete-left"></i></button>
+</div>
+<div class="container mostrar">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-bordered table-dark">
+                    <thead>
+                        <th>Jugador</th>
+                        <th>Score</th>
+                        <th>Score Crupier</th>
+                        <th>Fecha Juego</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of this.juegos">
+                            <td>{{item.usuario.nombre}}</td>
+                            <td>{{item.scoreJugador}}</td>
+                            <td>{{item.scoreCrupier}}</td>
+                            <td>{{item.fecha | date: "M/d/yy, h:mm a"}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

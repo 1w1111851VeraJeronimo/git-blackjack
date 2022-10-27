@@ -1,0 +1,25 @@
+.fondaco {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mostrar {
+    z-index: 2;
+    position: relative;
+    padding: 1%;
+    max-width: 175rem;
+    max-height: 40rem;
+    /* overflow: auto; */
+}
+
+th {
+    text-align: center;
+}
+
+td {
+    text-align: center;
+}

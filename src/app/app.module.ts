@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +16,9 @@ import { LoginComponent } from './security/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NavbarComponent } from './pages/layout/navbar/navbar.component';
+import { JwtInterceptorProvider } from './security/interceptors/ApplyJWTTokenInterceptor';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export function tokenGetter(){
   return localStorage.getItem('token');
@@ -42,15 +45,18 @@ export function tokenGetter(){
     HttpClientModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     JwtModule.forRoot({
       config:{
          tokenGetter: tokenGetter,
          allowedDomains : ['localhost:44353'],
          disallowedRoutes : ['localhost:44353/api/security']
       }
-   })
+   }),
+   NgxSpinnerModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

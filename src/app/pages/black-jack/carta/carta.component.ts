@@ -14,6 +14,6 @@ export class CartaComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.pathImagenCarta = `https://res.cloudinary.com/dfyevp7g4/image/upload/v1665174817/blackjack/cards/${!this.carta.showBack ? this.carta.nombre != null ? this.carta.nombre+this.carta.categoria.codigo: this.carta.numero+this.carta.categoria.codigo : "Gray_back"}.jpg`;
+    this.pathImagenCarta = `https://res.cloudinary.com/dfyevp7g4/image/upload/v1665174817/blackjack/cards/${!this.carta.showBack ? this.carta.nombre != null ? this.carta.nombre+this.carta.categoriaCartaDto.codigo: this.carta.numero+this.carta.categoriaCartaDto.codigo : "Gray_back"}.jpg`;
   }
 }

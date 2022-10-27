@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -6,6 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class CrupierService {
   
+  headers = new HttpHeaders({
+    "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    "Content-Type": "application/json"
+  });
+
   constructor() { }
 
   getHazValue() : Observable<number> {
