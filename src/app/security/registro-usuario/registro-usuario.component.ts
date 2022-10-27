@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { SecurityService } from '../../services/security/security.service';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-registro-usuario',
@@ -16,14 +17,15 @@ export class RegistroUsuarioComponent implements OnInit {
   private subscription: Subscription = new Subscription();
   public formularioRegistro!: FormGroup;
 
-  constructor(public formBuilder: FormBuilder, 
-    private securityService: SecurityService, 
-    private router: Router) {
+  constructor(public formBuilder: FormBuilder,
+    private securityService: SecurityService,
+    private router: Router,
+    private spinner: NgxSpinnerService) {
     this.createFormulario();
   }
 
   ngOnInit(): void {
-     this.video = '/assets/img/blackjackIntro.mp4';
+    this.video = '/assets/img/blackjackIntro.mp4';
   }
 
   ngOnDestroy(): void {
@@ -49,10 +51,11 @@ export class RegistroUsuarioComponent implements OnInit {
     if (!this.formularioRegistro.valid)
       return;
 
+    this.spinner.show();
     this.subscription.add(
       this.securityService.registrarUsuario(this.formularioRegistro.value).subscribe({
-        next: (result) => { this.displaySuccessWithRedirect("Bienvenido", `Gracias por registrarte ${result.nombre}, ${result.apellido}`, "/usuario/login"); console.log(result); },
-        error: (error) => { this.displayErrors(error.error, "Error"); console.log(error.error) }
+        next: (result) => { this.spinner.hide(); this.displaySuccessWithRedirect("Bienvenido", `Gracias por registrarte ${result.nombre}, ${result.apellido}`, "/usuario/login"); console.log(result); },
+        error: (error) => { this.spinner.hide(); this.displayErrors(error.error, "Error"); console.log(error.error) }
       })
     )
   }
@@ -70,7 +73,7 @@ export class RegistroUsuarioComponent implements OnInit {
     });
   }
 
-  displaySuccessWithRedirect(title: string, text: string, redirectUrl: string) : void {
+  displaySuccessWithRedirect(title: string, text: string, redirectUrl: string): void {
     swal.fire({
       icon: 'success',
       title: title,

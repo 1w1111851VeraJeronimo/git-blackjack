@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { SecurityService } from '../../services/security/security.service';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
 
   constructor(public formBuilder: FormBuilder,
     private securityService: SecurityService,
-    private router: Router) {
+    private router: Router,
+    private spinner: NgxSpinnerService) {
     this.crearForm();
   }
 
@@ -37,12 +39,15 @@ export class LoginComponent implements OnInit {
   }
 
   loguearUsuario(): void {
+    this.spinner.show();
     this.subscription.add(
       this.securityService.login(this.formularioLogin.value).subscribe(next => {
+        this.spinner.hide();
         this.displaySuccess("Bienvenido", "Login exitoso!");
         this.router.navigate(['/juego']);
       }, error => {
-        this.displayErrors('Error durante el logueo:' + error, "Error");
+        this.spinner.hide();
+        this.displayErrors('Error durante el logueo.', "Error");
       })
     )
   }

@@ -9,6 +9,7 @@ import { IRequestCartaDto } from 'src/app/interfaces/dtos/i-request-carta-dto';
 import { SecurityService } from 'src/app/services/security/security.service';
 import { JuegoService } from '../../../services/juego.service';
 import { IUpdateCartaValueDto } from '../../../interfaces/dtos/i-update-carta-value-dto';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-jugador',
@@ -29,7 +30,8 @@ export class JugadorComponent implements OnInit {
 
   constructor(private cartaService: CartaService,
     private juegoService: JuegoService,
-    private securityService: SecurityService) { }
+    private securityService: SecurityService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
 
@@ -46,14 +48,15 @@ export class JugadorComponent implements OnInit {
       return;
     }
 
+    this.spinner.show();
     this.subscription.add(
       this.cartaService.solicitarCartas(dto).subscribe({
-        next: (results) => { this.setNuevaCarta(results); },
-        error: (error) => { this.swalMessageEventEmitter.emit({ message: error, title: "Oops...", icon: "error" } as IswalMessageCommunicationDto); }
+        next: (results) => { this.spinner.hide(); this.setNuevaCarta(results); },
+        error: (error) => { this.spinner.hide(); this.swalMessageEventEmitter.emit({ message: error, title: "Oops...", icon: "error" } as IswalMessageCommunicationDto); }
       }));
   }
 
-  setPreviousCards(cartas: ICarta[]){
+  setPreviousCards(cartas: ICarta[]) {
     cartas.forEach(x => {
       this.cartasJugador.push(x);
       this.updateScore();
@@ -61,6 +64,7 @@ export class JugadorComponent implements OnInit {
   }
 
   setNuevaCarta(cartas: ICarta[]): void {
+    this.spinner.show();
     cartas.forEach(x => {
       if (x.nombre == "A") {
         swal.fire({
@@ -77,8 +81,9 @@ export class JugadorComponent implements OnInit {
                   x.valores.splice(x.valores.indexOf(1), 1);
                   this.cartasJugador.push(x);
                   this.updateScore();
+                  this.spinner.hide();
                 },
-                error: (error) => { console.log(error); }
+                error: (error) => { this.spinner.hide(); console.log(error); }
               })
             )
           } else if (result.isDenied) {
@@ -88,8 +93,9 @@ export class JugadorComponent implements OnInit {
                   x.valores.splice(x.valores.indexOf(11), 1);
                   this.cartasJugador.push(x);
                   this.updateScore();
+                  this.spinner.hide();
                 },
-                error: (error) => { console.log(error); }
+                error: (error) => { this.spinner.hide(); console.log(error); }
               })
             )
           }
@@ -97,6 +103,7 @@ export class JugadorComponent implements OnInit {
       } else {
         this.cartasJugador.push(x);
         this.updateScore();
+        this.spinner.hide();
       }
     });
   }

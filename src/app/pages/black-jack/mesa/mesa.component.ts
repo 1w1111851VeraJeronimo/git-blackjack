@@ -12,6 +12,7 @@ import { JuegoService } from '../../../services/juego.service';
 import { SecurityService } from '../../../services/security/security.service';
 import { UpdateGameStatusRequestDto } from '../../../interfaces/dtos/i-update-game-status-request-dto';
 import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-mesa',
@@ -27,7 +28,7 @@ export class MesaComponent implements OnInit {
   @ViewChild(CrupierComponent) crupierComponent!: CrupierComponent;
   @ViewChild(JugadorComponent) jugadorComponent!: JugadorComponent;
 
-  constructor(private juegoService: JuegoService, private securityService: SecurityService) { }
+  constructor(private juegoService: JuegoService, private securityService: SecurityService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.crupier = {} as ICrupier;
@@ -36,17 +37,21 @@ export class MesaComponent implements OnInit {
   }
 
   loadActiveGame(): void {
+    this.spinner.show();
     this.subscription.add(
       this.juegoService.loadActiveGame(this.securityService.getUserFromLocalStorage().id).subscribe({
-        next: (result) => { console.log(result);
-          if(result !=  null && result != undefined && result?.active){
+        next: (result) => {
+          console.log(result);
+          if (result != null && result != undefined && result?.active) {
             this.securityService.setCurrentGame(result.juegoDto);
             this.jugadorComponent.setPreviousCards(result.cartasUsuario);
             this.crupierComponent.setPreviousCards(result.cartasCrupier);
             this.jugadorComponent.juegoEnCurso = result.active;
+            this.spinner.hide();
           }
+          this.spinner.hide();
         },
-        error: (error) => { this.displayErrors("Error al cargar la informacion de los juegos pendientes.", "Error"); }
+        error: (error) => { this.spinner.hide(); this.displayErrors("Error al cargar la informacion de los juegos pendientes.", "Error"); }
       })
     )
   }
@@ -79,13 +84,14 @@ export class MesaComponent implements OnInit {
         this.crupierComponent.swipeCard();
         this.crupierComponent.completeMinRequiredScore();
         setTimeout(() => {
-          this.checkGrameStatus(this.jugador.score, this.crupier.score, this.jugador.score != 0 && this.crupier.score != 0)
+          this.checkGrameStatus(this.jugador.score, this.crupier.score, this.jugador.score != 0 && this.crupier.score != 0);
         }, 5000);
       }
     });
   }
 
   startNewGame(any: any): void {
+    this.spinner.show();
     this.subscription.add(
       this.juegoService.addJuego(this.securityService.getUserFromLocalStorage()?.id).subscribe({
         next: (result) => {
@@ -94,8 +100,9 @@ export class MesaComponent implements OnInit {
           this.crupierComponent.setCartaCrupier(2);
           this.jugadorComponent.solicitarNuevaCarta(2);
           this.jugadorComponent.juegoEnCurso = true;
+          this.spinner.hide();
         },
-        error: (error) => { this.displayWarning("¡Tenemos un problema, la partida no se pudo iniciar.!", "¡Error!"); }
+        error: (error) => { this.spinner.hide(); this.displayWarning("¡Tenemos un problema, la partida no se pudo iniciar.!", "¡Error!"); }
       })
     )
 
@@ -134,7 +141,7 @@ export class MesaComponent implements OnInit {
   }
 
   resetMesa(): void {
-    debugger;
+    this.spinner.show();
     this.subscription.add(
       this.juegoService.updateGameStatus({ idUsuario: this.securityService.getUserFromLocalStorage().id, idJuego: this.securityService.getGameFromLocalStorage().id, scoreCrupier: this.crupier.score, scoreJugador: this.jugador.score } as UpdateGameStatusRequestDto).subscribe({
         next: (result) => {
@@ -143,8 +150,10 @@ export class MesaComponent implements OnInit {
           this.jugador = {} as IJugador;
           this.crupier = {} as ICrupier;
           this.jugadorComponent.juegoEnCurso = false;
+          this.spinner.hide();
         },
         error: (error) => {
+          this.spinner.hide();
           this.displayErrors("No pudimos terminar la partida.", "Error");
         }
       })

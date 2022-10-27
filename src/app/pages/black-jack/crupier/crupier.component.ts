@@ -7,6 +7,7 @@ import { IswalMessageCommunicationDto } from '../../../interfaces/dtos/iswal-mes
 import { CrupierService } from '../../../services/crupier.service';
 import { IRequestCartaDto } from '../../../interfaces/dtos/i-request-carta-dto';
 import { SecurityService } from 'src/app/services/security/security.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-crupier',
@@ -22,7 +23,8 @@ export class CrupierComponent implements OnInit {
   @Output() swalMessageEventEmitter = new EventEmitter<IswalMessageCommunicationDto>();
 
   constructor(private cartaService: CartaService, private crupierService: CrupierService,
-    private securityService: SecurityService) { }
+    private securityService: SecurityService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
   }
@@ -35,7 +37,7 @@ export class CrupierComponent implements OnInit {
     this.setCartaCrupier(1, false, true);
   }
 
-  setPreviousCards(cartas: ICarta[]){
+  setPreviousCards(cartas: ICarta[]) {
     cartas.forEach(x => {
       this.cartasCrupier.push(x);
       this.updateScore();
@@ -43,17 +45,19 @@ export class CrupierComponent implements OnInit {
   }
 
   setFinPartida(emitEvent: boolean = true): void {
+    this.spinner.show();
     let dto = { idJuego: this.securityService.getGameFromLocalStorage().id, idUsuario: this.securityService.getUserFromLocalStorage().id, scoreCrupier: this.score };
 
     this.subscription.add(
       this.cartaService.solicitarCartaFinPartida(dto).subscribe({
-        next: (results) => { this.setNuevaCarta(results, emitEvent); },
-        error: (error) => { this.swalMessageEventEmitter.emit({ message: error, title: "Oops...", icon: "error" } as IswalMessageCommunicationDto); }
+        next: (results) => { this.setNuevaCarta(results, emitEvent); this.spinner.hide(); },
+        error: (error) => { this.spinner.hide(); this.swalMessageEventEmitter.emit({ message: error, title: "Oops...", icon: "error" } as IswalMessageCommunicationDto); }
       })
     );
   }
 
   setCartaCrupier(cantidad: number, emitEvent: boolean = true, isEndOfGame: boolean = false): void {
+    this.spinner.show();
     let dto = { idJuego: this.securityService.getGameFromLocalStorage().id, idUsuario: this.securityService.getUserFromLocalStorage().id, cantidadCartasSolicitadas: cantidad, esCrupier: true } as IRequestCartaDto
 
     this.subscription.add(
@@ -68,19 +72,22 @@ export class CrupierComponent implements OnInit {
           if (isEndOfGame && this.score >= 17) {
             this.updateScore(true);
           }
+
+          this.spinner.hide();
         },
-        error: (error) => { this.swalMessageEventEmitter.emit({ message: error, title: "Oops...", icon: "error" } as IswalMessageCommunicationDto); }
+        error: (error) => { this.spinner.hide(); this.swalMessageEventEmitter.emit({ message: error, title: "Oops...", icon: "error" } as IswalMessageCommunicationDto); }
       })
     );
   }
 
   setNuevaCarta(cartas: ICarta[], emitEvent: boolean = true): void {
+    this.spinner.show();
     let index = 1;
     cartas.forEach(x => {
       if (x.nombre == "A") {
         this.crupierService.getHazValue().subscribe({
-          next: (result) => { x.valores.splice(x.valores.indexOf(result), 1); },
-          error: (error) => { this.swalMessageEventEmitter.emit({ message: error, title: "Oops...", icon: "error" } as IswalMessageCommunicationDto); }
+          next: (result) => { this.spinner.hide(); x.valores.splice(x.valores.indexOf(result), 1); },
+          error: (error) => { this.spinner.hide(); this.swalMessageEventEmitter.emit({ message: error, title: "Oops...", icon: "error" } as IswalMessageCommunicationDto); }
         });
       }
 
@@ -90,6 +97,7 @@ export class CrupierComponent implements OnInit {
 
       this.cartasCrupier.push(x);
       index++;
+      this.spinner.hide();
     });
     this.updateScore(emitEvent);
   }
