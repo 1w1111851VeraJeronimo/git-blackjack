@@ -1,4 +1,4 @@
-<div class="content">    
+<div class="content">
     <div class="col-12">
         <div class="row mt-8r">
             <div class="col-4"></div>
@@ -17,7 +17,6 @@
                         <label class="form-label">Contraseña</label>
                         <input type="password" formControlName="password" class="form-control" />
                         <small class="validation-error" *ngIf="this.formularioLogin.get('password')?.hasError('required') && this.formularioLogin.get('password')?.touched">La contraseña es un campo requerido.</small>
-                        <small class="validation-error" *ngIf="this.formularioLogin.get('password')?.hasError('minlength') && this.formularioLogin.get('password')?.touched">La contraseña debe tener al menos 4 caracteres.</small>
                         <small class="validation-error" *ngIf="this.formularioLogin.get('password')?.hasError('maxlength') && this.formularioLogin.get('password')?.touched">La contraseña debe tener como maximo 50 caracteres.</small>
                     </div>
                     <div class="form-group mtc-5 aling-center">

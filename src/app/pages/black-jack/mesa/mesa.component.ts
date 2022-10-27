@@ -104,8 +104,10 @@ export class MesaComponent implements OnInit {
     if (jugadorScore < crupierScore && crupierScore < 21 && ready) {
       if (this.crupier.score == 21 && ready) {
         this.displayErrors("¡El Crupier hizo Black Jack!", "¡Perdiste!");
+        this.jugadorComponent.juegoEnCurso = false;
       } else {
         this.displayErrors("¡Perdiste la partida!. El crupier tiene mas puntos.", "¡Perdiste!");
+        this.jugadorComponent.juegoEnCurso = false;
       }
       this.resetMesa();
     }
@@ -113,14 +115,17 @@ export class MesaComponent implements OnInit {
     if (jugadorScore > crupierScore && ready || crupierScore > 21 && ready) {
       if (jugadorScore == 21 && ready) {
         this.displaySuccess("¡Black Jack!", "¡Ganaste!");
+        this.jugadorComponent.juegoEnCurso = false;
       } else {
         this.displaySuccess("¡Felicitaciones!.", "¡Ganaste!");
+        this.jugadorComponent.juegoEnCurso = false;
       }
       this.resetMesa();
     }
 
     if (jugadorScore == crupierScore && ready) {
       this.displayWarning("¡Tenes el mismo puntaje que el crupier!", "¡Empate!");
+      this.jugadorComponent.juegoEnCurso = false;
       this.resetMesa();
     }
   }

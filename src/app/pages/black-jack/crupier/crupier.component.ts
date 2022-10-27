@@ -32,11 +32,21 @@ export class CrupierComponent implements OnInit {
   }
 
   completeMinRequiredScore(): void {
-    while (this.score < 17) {
-      this.setCartaCrupier(1, false);
-    }
+    
+  if((this.score < 17)){  
     this.updateScore(true);
+    if(this.score < 17){
+       this.setCartaCrupier(1, false); 
+       if(this.score < 17){
+        this.setCartaCrupier(1, false); 
+       }
   }
+  this.updateScore(true);
+  
+
+}
+ 
+}
 
   setCartaCrupier(cantidad: number, emitEvent: boolean = true): void {
     let dto = { idJuego: this.securityService.getGameFromLocalStorage().id, idUsuario: this.securityService.getUserFromLocalStorage().id, cantidadCartasSolicitadas: cantidad, esCrupier: true } as IRequestCartaDto
