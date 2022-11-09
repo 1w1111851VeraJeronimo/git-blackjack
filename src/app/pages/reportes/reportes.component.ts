@@ -23,7 +23,7 @@ export class ReportesComponent implements OnInit {
     plugins: {
       legend: {
         display: true,
-        position: 'top',
+        position: 'top'
       }
     }
   };
