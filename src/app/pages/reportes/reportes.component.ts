@@ -58,8 +58,9 @@ export class ReportesComponent implements OnInit {
     this.subscription.add(
       this.reporteService.getIndiceDeVictoriaCrupier(this.securityService.getUserFromLocalStorage().id).subscribe({
         next: (result) => {
+          console.log(result);
           this.reporte1Data.push(result.porcentajeCrupier);
-          this.reporte1Data.push(100);
+          this.reporte1Data.push(result.porcentajeCrupier == 0 ? 0 : 100);
           this.pieChartData = {
             labels: ['Porcentaje Partidas Ganadas', 'Total Partidas'],
             datasets: [{
