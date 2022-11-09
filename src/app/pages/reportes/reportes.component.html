@@ -1,0 +1,55 @@
+<div>
+    <img src="" alt="" [src]="fondo" class="fondaco">
+</div>
+<div class="container-fluid" style="padding-top: 1%;">
+    <button type="button" class="btn btn-danger mx-auto " style="z-index: 2;
+position: relative;" routerLink="/inicio"><i class="fa-sharp fa-solid fa-delete-left"></i></button>
+</div>
+<div class="container mostrar">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <div class="card" style="width: 30rem;">
+                    <div class="card-header" style="text-align: center;">
+                        <strong>RPT1: Índice de partidas ganas por el crupier</strong>
+                    </div>
+                    <div class="chart">
+                        <canvas baseChart [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions">
+                        </canvas>
+                    </div>
+                    <div class="card-body" style="text-align: center;">
+                        <p class="card-text">Muestra el porcentaje de partidas donde el crupier salio ganador. Las
+                            metricas son para el usuario logueado. Los valores esta expresados en porcentajes.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card" style="text-align: center;">
+                    <div class="card-header">
+                        <strong>RPT2: Cantidad de jugadores y juegos por día.</strong>
+                    </div>
+                    <div class="chart">
+                        <canvas baseChart [data]="barChartData" [type]="barChartType">
+                        </canvas>
+                    </div>
+                    <div class="card-body" style="text-align: center;">
+                        <p class="card-text">Muestra la cantidad de juegos y juegadores por día.</p>
+                    </div>
+                </div>
+                <div class="card" style="text-align: center;  margin-top: 5px;">
+                    <div class="card-header">
+                        <strong>RPT3: Promedio Blackjack Jugador y Crupier.</strong>
+                    </div>
+                    <div class="chart">
+                        <canvas baseChart [data]="barChartData2" [type]="barChartType">
+                        </canvas>
+                    </div>
+                    <div class="card-body" style="text-align: center;">
+                        <p class="card-text">Muestra un prmedio de partidas con Blackjack por parte del judagor y el
+                            crupier.  Las metricas son para el usuario logueado.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,10 +12,13 @@
           <li class="nav-item">
             <a class="nav-link whiteText" routerLink="/partidas">Hisorico Partidas</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link whiteText" routerLink="/reportes">Reportes</a>
+          </li>
         </ul>
         <div class="nav-item dropdown" style="margin-right: 5rem;">
             <a class="nav-link dropdown-toggle whiteText" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
+              <span>{{this.securityService.getUserFromLocalStorage().nombre}}, {{this.securityService.getUserFromLocalStorage().apellido}} <a class="fa fa-user"></a></span>
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" (click)="this.desloguearUsuario()">Desloguear Usuario</a></li>

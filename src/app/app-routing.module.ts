@@ -7,6 +7,7 @@ import { ReglasComponent } from './pages/reglas/reglas.component';
 import { AuthGuardService } from './security/guards/auth-guard.service';
 import { LoginComponent } from './security/login/login.component';
 import { RegistroUsuarioComponent } from './security/registro-usuario/registro-usuario.component';
+import { ReportesComponent } from './pages/reportes/reportes.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'juego', component: MesaComponent },
       { path: 'reglas', component: ReglasComponent },
       { path: 'partidas', component: ListaComponent },
+      { path: 'reportes', component: ReportesComponent }
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }

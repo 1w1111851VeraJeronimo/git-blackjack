@@ -19,6 +19,8 @@ import { NavbarComponent } from './pages/layout/navbar/navbar.component';
 import { JwtInterceptorProvider } from './security/interceptors/ApplyJWTTokenInterceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReportesComponent } from './pages/reportes/reportes.component';
+import { NgChartsModule } from 'ng2-charts';
 
 export function tokenGetter(){
   return localStorage.getItem('token');
@@ -37,7 +39,8 @@ export function tokenGetter(){
     CartaComponent,
     RegistroUsuarioComponent,
     LoginComponent,
-    NavbarComponent
+    NavbarComponent,
+    ReportesComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ export function tokenGetter(){
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgChartsModule,
     JwtModule.forRoot({
       config:{
          tokenGetter: tokenGetter,
