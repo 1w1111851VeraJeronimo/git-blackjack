@@ -15,7 +15,6 @@ import { SecurityService } from '../../services/security/security.service';
 export class ReportesComponent implements OnInit {
   fondo = '../../../../assets/img/background/Pano-transformedd.jpg';
   private subscription: Subscription = new Subscription();
-  reporte1Data: number[] = [];
   constructor(private reporteService: ReporteService, private securityService: SecurityService, private spinner: NgxSpinnerService) { }
 
   public pieChartOptions: ChartConfiguration['options'] = {
@@ -59,12 +58,10 @@ export class ReportesComponent implements OnInit {
       this.reporteService.getIndiceDeVictoriaCrupier(this.securityService.getUserFromLocalStorage().id).subscribe({
         next: (result) => {
           console.log(result);
-          this.reporte1Data.push(result.porcentajeCrupier);
-          this.reporte1Data.push(result.porcentajeCrupier == 0 ? 0 : 100);
           this.pieChartData = {
             labels: ['Porcentaje Partidas Ganadas', 'Total Partidas'],
             datasets: [{
-              data: this.reporte1Data
+              data: [result.porcentajeCrupier, result.porcentajeJugador]
             }]
           }
           this.spinner.hide();
