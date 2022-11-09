@@ -1,6 +1,3 @@
-<div>
-    <img src="" alt="" [src]="fondo" class="fondaco">
-</div>
 <div class="container-fluid" style="padding-top: 1%;">
     <button type="button" class="btn btn-danger mx-auto " style="z-index: 2;
 position: relative;" routerLink="/inicio"><i class="fa-sharp fa-solid fa-delete-left"></i></button>
@@ -9,14 +6,14 @@ position: relative;" routerLink="/inicio"><i class="fa-sharp fa-solid fa-delete-
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1>Resultado últimas 10 partidas</h1>
-                <hr class="devider"/>
+                <h1 style="color: white;">Resultado últimas 10 partidas</h1>
+                <hr>
                 <table class="table table-bordered table-dark">
-                    <thead>
+                    <thead style="background-color: black;">
                         <th>Jugador</th>
-                        <th>Score Jugador</th>
-                        <th>Score Crupier</th>
-                        <th>Fecha Juego</th>
+                        <th>Tu Score</th>
+                        <th>El Sore del crupier</th>
+                        <th>Fecha Del Juego</th>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of this.juegos">
