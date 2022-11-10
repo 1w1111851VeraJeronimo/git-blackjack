@@ -26,7 +26,7 @@ export class ListaComponent implements OnInit {
   loadListing(): void {
     this.spinner.show();
     this.subscription.add(this.partidaService.getLatestGamesForUser(this.securityService.getUserFromLocalStorage().id).subscribe({
-      next: (result) => { this.juegos = result; this.spinner.hide(); },
+      next: (result) => { this.juegos = result; this.spinner.hide(); console.log(result); },
       error: (error) => { console.log(error); this.spinner.hide(); }
     })
     );

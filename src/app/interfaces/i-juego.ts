@@ -8,6 +8,7 @@ export interface IJuego {
     activo: boolean;
     descripcion: string;
     ganoJugador: boolean;
+    esEmpate: boolean;
     usuario: IDetalleUsuarioDto;
     detalleJuego: IDetalleJuego[];
     scoreCrupier: number;

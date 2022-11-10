@@ -24,6 +24,8 @@ export class MesaComponent implements OnInit {
 
   crupier!: ICrupier;
   jugador!: IJugador;
+  ganaJugador: boolean = false;
+  esEmpate: boolean = false;
   private subscription: Subscription = new Subscription();
   @ViewChild(CrupierComponent) crupierComponent!: CrupierComponent;
   @ViewChild(JugadorComponent) jugadorComponent!: JugadorComponent;
@@ -109,32 +111,44 @@ export class MesaComponent implements OnInit {
   }
 
   checkGrameStatus(jugadorScore: number, crupierScore: number, ready: boolean): void {
-    if (jugadorScore == 21 && ready) {
+    if (jugadorScore == 21 && crupierScore != 21 && ready) {
       this.displaySuccess("¡Black Jack!", "¡Ganaste la partida!.");
+      this.ganaJugador = true;
+      this.resetMesa();
+      return;
+    }
+
+    if (crupierScore == 21 && jugadorScore != 21 && ready) {
+      this.displayErrors("¡Perdiste la partida!. El crupier hizo blackjack.", "Oops...");
+      this.ganaJugador = false;
       this.resetMesa();
       return;
     }
 
     if (jugadorScore > 21 && ready) {
       this.displayErrors("¡Perdiste la partida! Superaste los 21 puntos.", "Oops...");
+      this.ganaJugador = false;
       this.resetMesa();
       return;
     }
 
     if (jugadorScore < crupierScore && ready) {
       this.displayErrors("¡Perdiste la partida!. El crupier tiene mas puntos.", "Oops...");
+      this.ganaJugador = false;
       this.resetMesa();
       return;
     }
 
     if (jugadorScore > crupierScore && ready) {
       this.displaySuccess("¡Felicitaciones!.", "¡Ganaste la partida!.");
+      this.ganaJugador = true;
       this.resetMesa();
       return;
     }
 
     if (jugadorScore == crupierScore && ready) {
       this.displayWarning("¡Tenes el mismo puntaje que el crupier!", "¡Empate!");
+      this.esEmpate = true;
       this.resetMesa();
       return;
     }
@@ -143,13 +157,15 @@ export class MesaComponent implements OnInit {
   resetMesa(): void {
     this.spinner.show();
     this.subscription.add(
-      this.juegoService.updateGameStatus({ idUsuario: this.securityService.getUserFromLocalStorage().id, idJuego: this.securityService.getGameFromLocalStorage().id, scoreCrupier: this.crupier.score, scoreJugador: this.jugador.score } as UpdateGameStatusRequestDto).subscribe({
+      this.juegoService.updateGameStatus({ idUsuario: this.securityService.getUserFromLocalStorage().id, idJuego: this.securityService.getGameFromLocalStorage().id, scoreCrupier: this.crupier.score, scoreJugador: this.jugador.score, ganaJugador: this.ganaJugador, esEmpate: this.esEmpate } as UpdateGameStatusRequestDto).subscribe({
         next: (result) => {
           this.crupierComponent.resetCrupier();
           this.jugadorComponent.resetJugador();
           this.jugador = {} as IJugador;
           this.crupier = {} as ICrupier;
           this.jugadorComponent.juegoEnCurso = false;
+          this.ganaJugador = false;
+          this.esEmpate = false;
           this.spinner.hide();
         },
         error: (error) => {

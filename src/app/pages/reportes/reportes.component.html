@@ -11,10 +11,10 @@ position: relative;" routerLink="/inicio"><i class="fa-sharp fa-solid fa-delete-
             <div class="col-xs-4 col-md-4 col-sm-12">
                 <div class="card text-white bg-dark" style="width: 100%;">
                     <div class="card-header" style="text-align: center;">
-                        <strong>RPT1: Porcentaje de partidas ganadas por el crupier</strong>
+                        <strong>RPT1: Porcentaje de partidas ganadas por el crupier.</strong>
                     </div>
                     <div class="chart">
-                        <canvas baseChart [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions">
+                        <canvas baseChart [data]="pieChartData" [type]="pieChartType" [options]="options">
                         </canvas>
                     </div>
                     <div class="card-body" style="text-align: center;">
@@ -25,10 +25,10 @@ position: relative;" routerLink="/inicio"><i class="fa-sharp fa-solid fa-delete-
             <div class="col-xs-4 col-md-4 col-sm-12">
                 <div class="card text-white bg-dark " style="text-align: center;  margin-top: 5px; width: 100%;">
                     <div class="card-header">
-                        <strong>RPT3: Promedio Blackjack Jugador y Crupier.</strong>
+                        <strong>RPT3: Promedio de partidas con Blackjack del Jugador y Crupier.</strong>
                     </div>
                     <div class="chart">
-                        <canvas baseChart [data]="barChartData2" [type]="barChartType">
+                        <canvas baseChart [data]="barChartData2" [type]="barChartType" [options]="options">
                         </canvas>
                     </div>
                     <div class="card-body" style="text-align: center;">
@@ -39,10 +39,10 @@ position: relative;" routerLink="/inicio"><i class="fa-sharp fa-solid fa-delete-
             <div class="col-xs-4 col-md-4 col-sm-12">
                 <div class="card text-white bg-dark " style="text-align: center; margin-top: 5px; width: 100%;">
                     <div class="card-header">
-                        <strong>RPT2: Cantidad de jugadores y juegos por día.</strong>
+                        <strong>RPT2: Cantidad de juegos y jugadores por día.</strong>
                     </div>
                     <div class="chart">
-                        <canvas baseChart [data]="barChartData" [type]="barChartType">
+                        <canvas baseChart [data]="barChartData" [type]="barChartType" [options]="options">
                         </canvas>
                     </div>
                     <div class="card-body" style="text-align: center;">

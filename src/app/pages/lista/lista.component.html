@@ -16,6 +16,8 @@ position: relative;" routerLink="/inicio"><i class="fa-sharp fa-solid fa-delete-
                         <th>Jugador</th>
                         <th>Score Jugador</th>
                         <th>Score Crupier</th>
+                        <th>Gano Jugador</th>
+                        <th>Es Empate</th>
                         <th>Fecha Del Juego</th>
                     </thead>
                     <tbody>
@@ -23,6 +25,8 @@ position: relative;" routerLink="/inicio"><i class="fa-sharp fa-solid fa-delete-
                             <td>{{item.usuario.nombre}}</td>
                             <td>{{item.scoreJugador}}</td>
                             <td>{{item.scoreCrupier}}</td>
+                            <td><span [ngClass]='item.ganoJugador ? "fa fa-check" : "fa fa-times"'></span></td>
+                            <td><span [ngClass]='item.esEmpate ? "fa fa-check" : "fa fa-times"'></span></td>
                             <td>{{item.fecha | date: "M/d/yy, h:mm a"}}</td>
                         </tr>
                     </tbody>

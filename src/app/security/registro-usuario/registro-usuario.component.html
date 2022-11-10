@@ -4,7 +4,8 @@
 <div class="py-4"></div>
 <div class="container col-md-6 rounded-4">
     <form [formGroup]="formularioRegistro" (submit)="registrarUsuario()" class="container py-2">
-        <button type="button" class="btn btn-danger mx-auto go-back-btn" routerLink="/inicio"><i class="fa-sharp fa-solid fa-delete-left"></i></button>
+        <button type="button" class="btn btn-danger mx-auto go-back-btn" routerLink="/inicio"><i
+                class="fa-sharp fa-solid fa-delete-left"></i></button>
         <h1>Registro</h1>
         <hr />
         <div class="row py-1">
@@ -12,18 +13,30 @@
                 <div class="form-group">
                     <label for="">Correo Electrónico</label>
                     <input type="text" formControlName="email" class="form-control" />
-                    <small class="validation-error" *ngIf="this.formularioRegistro.get('email')?.hasError('required') && this.formularioRegistro.get('email')?.touched">La direccion de correo electrónico es un campo requerido.</small>
-                    <small class="validation-error" *ngIf="this.formularioRegistro.get('email')?.hasError('minlength') && this.formularioRegistro.get('email')?.touched">La direccion de correo electronico debe tener al menos 4 caracteres.</small>
-                    <small class="validation-error" *ngIf="this.formularioRegistro.get('email')?.hasError('maxlength') && this.formularioRegistro.get('email')?.touched">La direccion de correo electronico debe tener como maximo 50 caracteres.</small>
+                    <small class="validation-error"
+                        *ngIf="this.formularioRegistro.get('email')?.hasError('required') && this.formularioRegistro.get('email')?.touched">La
+                        direccion de correo electrónico es un campo requerido.</small>
+                    <small class="validation-error"
+                        *ngIf="this.formularioRegistro.get('email')?.hasError('minlength') && this.formularioRegistro.get('email')?.touched">La
+                        direccion de correo electronico debe tener al menos 4 caracteres.</small>
+                    <small class="validation-error"
+                        *ngIf="this.formularioRegistro.get('email')?.hasError('maxlength') && this.formularioRegistro.get('email')?.touched">La
+                        direccion de correo electronico debe tener como maximo 50 caracteres.</small>
                 </div>
             </div>
             <div class="col-md-6 ">
                 <div class="form-group">
                     <label>Apellido</label>
                     <input type="text" formControlName="apellido" class="form-control" />
-                    <small class="validation-error" *ngIf="this.formularioRegistro.get('apellido')?.hasError('required') && this.formularioRegistro.get('apellido')?.touched">El apellido es un campo requerido.</small>
-                    <small class="validation-error" *ngIf="this.formularioRegistro.get('apellido')?.hasError('minlength') && this.formularioRegistro.get('apellido')?.touched">El apellido debe tener al menos 4 caracteres.</small>
-                    <small class="validation-error" *ngIf="this.formularioRegistro.get('apellido')?.hasError('maxlength') && this.formularioRegistro.get('apellido')?.touched">El apellido debe tener como maximo 50 caracteres.</small>
+                    <small class="validation-error"
+                        *ngIf="this.formularioRegistro.get('apellido')?.hasError('required') && this.formularioRegistro.get('apellido')?.touched">El
+                        apellido es un campo requerido.</small>
+                    <small class="validation-error"
+                        *ngIf="this.formularioRegistro.get('apellido')?.hasError('minlength') && this.formularioRegistro.get('apellido')?.touched">El
+                        apellido debe tener al menos 4 caracteres.</small>
+                    <small class="validation-error"
+                        *ngIf="this.formularioRegistro.get('apellido')?.hasError('maxlength') && this.formularioRegistro.get('apellido')?.touched">El
+                        apellido debe tener como maximo 50 caracteres.</small>
                 </div>
             </div>
         </div>
@@ -32,17 +45,24 @@
                 <div class="form-group">
                     <label>Nombre</label>
                     <input type="text" formControlName="nombre" class="form-control" />
-                    <small class="validation-error" *ngIf="this.formularioRegistro.get('nombre')?.hasError('required') && this.formularioRegistro.get('nombre')?.touched">El nombre es un Fcampo requerido.</small>
-                    <small class="validation-error" *ngIf="this.formularioRegistro.get('nombre')?.hasError('minlength') && this.formularioRegistro.get('nombre')?.touched">El nombre debe tener al menos 4 caracteres.</small>
-                    <small class="validation-error" *ngIf="this.formularioRegistro.get('nombre')?.hasError('maxlength') && this.formularioRegistro.get('nombre')?.touched">El nombre debe tener como maximo 50 caracteres.</small>
+                    <small class="validation-error"
+                        *ngIf="this.formularioRegistro.get('nombre')?.hasError('required') && this.formularioRegistro.get('nombre')?.touched">El
+                        nombre es un Fcampo requerido.</small>
+                    <small class="validation-error"
+                        *ngIf="this.formularioRegistro.get('nombre')?.hasError('minlength') && this.formularioRegistro.get('nombre')?.touched">El
+                        nombre debe tener al menos 4 caracteres.</small>
+                    <small class="validation-error"
+                        *ngIf="this.formularioRegistro.get('nombre')?.hasError('maxlength') && this.formularioRegistro.get('nombre')?.touched">El
+                        nombre debe tener como maximo 50 caracteres.</small>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-
                     <label class="form-label">Fecha Nacimiento</label>
                     <input type="date" formControlName="fechaNacimiento" class="form-control" />
-                    <small class="validation-error" *ngIf="this.formularioRegistro.get('fechaNacimiento')?.hasError('required') && this.formularioRegistro.get('fechaNacimiento')?.touched">La fecha de nacimiento es un campo requerido.</small>
+                    <small class="validation-error"
+                        *ngIf="this.formularioRegistro.get('fechaNacimiento')?.hasError('required') && this.formularioRegistro.get('fechaNacimiento')?.touched">La
+                        fecha de nacimiento es un campo requerido.</small>
                 </div>
             </div>
         </div>
@@ -51,19 +71,33 @@
                 <div class="form-group">
                     <label for="">Contraseña</label>
                     <input type="password" formControlName="password" class="form-control" />
-                    <small class="validation-error" *ngIf="this.formularioRegistro.get('password')?.hasError('required') && this.formularioRegistro.get('password')?.touched">La contraseña es un campo requerido.</small>
-                    <small class="validation-error" *ngIf="this.formularioRegistro.get('password')?.hasError('minlength') && this.formularioRegistro.get('password')?.touched">La contraseña debe tener al menos 4 caracteres.</small>
-                    <small class="validation-error" *ngIf="this.formularioRegistro.get('password')?.hasError('maxlength') && this.formularioRegistro.get('password')?.touched">La contraseña debe tener como maximo 50 caracteres.</small>
+                    <small class="validation-error"
+                        *ngIf="this.formularioRegistro.get('password')?.hasError('required') && this.formularioRegistro.get('password')?.touched">La
+                        contraseña es un campo requerido.</small>
+                    <small class="validation-error"
+                        *ngIf="this.formularioRegistro.get('password')?.hasError('minlength') && this.formularioRegistro.get('password')?.touched">La
+                        contraseña debe tener al menos 4 caracteres.</small>
+                    <small class="validation-error"
+                        *ngIf="this.formularioRegistro.get('password')?.hasError('maxlength') && this.formularioRegistro.get('password')?.touched">La
+                        contraseña debe tener como maximo 50 caracteres.</small>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Confirmar Contraseña</label>
                     <input type="password" formControlName="confirmPassword" class="form-control" />
-                    <small class="validation-error" *ngIf="this.formularioRegistro.get('confirmPassword')?.hasError('required') && this.formularioRegistro.get('confirmPassword')?.touched">La confirmación de la contraseña es un campo requerido.</small>
-                    <small class="validation-error" *ngIf="this.formularioRegistro.hasError('mismatch') && this.formularioRegistro.get('confirmPassword')?.touched">El campo contraseña no coincide con el campo confirmación de contraseña.</small>
-                    <small class="validation-error" *ngIf="this.formularioRegistro.get('confirmPassword')?.hasError('minlength') && this.formularioRegistro.get('confirmPassword')?.touched">La confirmación de la contraseña debe tener al menos 4 caracteres.</small>
-                    <small class="validation-error" *ngIf="this.formularioRegistro.get('confirmPassword')?.hasError('maxlength') && this.formularioRegistro.get('confirmPassword')?.touched">La confirmación de la contraseña debe tener como maximo 50 caracteres.</small>
+                    <small class="validation-error"
+                        *ngIf="this.formularioRegistro.get('confirmPassword')?.hasError('required') && this.formularioRegistro.get('confirmPassword')?.touched">La
+                        confirmación de la contraseña es un campo requerido.</small>
+                    <small class="validation-error"
+                        *ngIf="this.formularioRegistro.hasError('mismatch') && this.formularioRegistro.get('confirmPassword')?.touched">El
+                        campo contraseña no coincide con el campo confirmación de contraseña.</small>
+                    <small class="validation-error"
+                        *ngIf="this.formularioRegistro.get('confirmPassword')?.hasError('minlength') && this.formularioRegistro.get('confirmPassword')?.touched">La
+                        confirmación de la contraseña debe tener al menos 4 caracteres.</small>
+                    <small class="validation-error"
+                        *ngIf="this.formularioRegistro.get('confirmPassword')?.hasError('maxlength') && this.formularioRegistro.get('confirmPassword')?.touched">La
+                        confirmación de la contraseña debe tener como maximo 50 caracteres.</small>
                 </div>
             </div>
         </div>
@@ -73,8 +107,6 @@
             </div>
             <div class="d-grid py-1">
                 <button type="button" class="btn btn-danger" (click)="cancelar()"><strong>Cancelar</strong></button>
-
-
             </div>
         </div>
     </form>

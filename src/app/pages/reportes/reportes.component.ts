@@ -17,12 +17,15 @@ export class ReportesComponent implements OnInit {
   private subscription: Subscription = new Subscription();
   constructor(private reporteService: ReporteService, private securityService: SecurityService, private spinner: NgxSpinnerService) { }
 
-  public pieChartOptions: ChartConfiguration['options'] = {
+  public options: ChartConfiguration['options'] = {
     responsive: true,
     plugins: {
       legend: {
         display: true,
-        position: 'top'
+        labels: {
+          color: 'white'
+        },
+        position: 'top',
       }
     }
   };
@@ -57,9 +60,8 @@ export class ReportesComponent implements OnInit {
     this.subscription.add(
       this.reporteService.getIndiceDeVictoriaCrupier(this.securityService.getUserFromLocalStorage().id).subscribe({
         next: (result) => {
-          console.log(result);
           this.pieChartData = {
-            labels: ['Porcentaje Partidas Ganadas', 'Total Partidas'],
+            labels: ['Porcentaje Partidas Ganadas Por Crupier', 'Porcentaje Partidas Ganadas Por Jugador'],
             datasets: [{
               data: [result.porcentajeCrupier, result.porcentajeJugador]
             }]
@@ -70,11 +72,16 @@ export class ReportesComponent implements OnInit {
       })
     )
 
+    this.spinner.show();
     this.subscription.add(
       this.reporteService.cantidadJuegosYJugadoresPorDia().subscribe({
         next: (result) => {
+          console.log(result);
+          console.log(result.map(x => x.gameDate));
+          console.log(result.map(x => x.cantidadJuegos));
+          console.log(result.map(x => x.cantidadJugadores));
           this.barChartData = {
-            labels: [result.map(x => x.gameDate)],
+            labels: result.map(x => x.gameDate),
             datasets: [
               { data: result.map(x => x.cantidadJuegos), label: 'Cantidad Juegos' },
               { data: result.map(x => x.cantidadJugadores), label: 'Cantidad Jugadores' }
@@ -86,11 +93,12 @@ export class ReportesComponent implements OnInit {
       })
     )
 
+    this.spinner.show();
     this.subscription.add(
       this.reporteService.getReportePromedioPartidasBlackJack(this.securityService.getUserFromLocalStorage().id).subscribe({
         next: (result) => {
           this.barChartData2 = {
-            labels: ['Partidas BlackJack Jugador', 'Partida BlackJack Crupier'],
+            labels: ['Partida BlackJack Crupier', 'Partidas BlackJack Jugador'],
             datasets: [
               { data: [result.promedioBlackJackCrupier], label: 'Crupier' },
               { data: [result.promedioBlackJackJugador], label: 'Jugador' }
